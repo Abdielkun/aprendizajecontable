@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="bg-brand-blue py-20 text-center text-white">
+    <h1 class="text-5xl font-bold mb-4">Planes Premium</h1>
+    <p class="text-xl text-blue-200">Invierte en tu futuro profesional.</p>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 py-16 grid lg:grid-cols-3 gap-8 -mt-24 relative z-10">
+    <!-- Mensual -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col hover:-translate-y-2 transition">
+        <h3 class="text-2xl font-bold text-gray-800">Mensual</h3>
+        <p class="text-4xl font-extrabold text-brand-blue my-4">S/ 190</p>
+        {% if mensual %}
+            <a href="{% url 'agregar_carrito' mensual.id %}" class="block w-full py-3 border-2 border-brand-blue text-brand-blue font-bold text-center rounded-xl hover:bg-brand-blue hover:text-white transition">Suscribirme</a>
+        {% endif %}
+        <ul class="mt-6 space-y-3 text-sm text-gray-600">
+            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Acceso 30 días</li>
+            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Cursos en vivo</li>
+        </ul>
+    </div>
+
+    <!-- Anual -->
+    <div class="bg-white rounded-2xl shadow-2xl p-8 flex flex-col transform scale-105 border-t-4 border-brand-orange relative">
+        <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-orange text-white px-4 py-1 text-xs font-bold rounded-full">RECOMENDADO</span>
+        <h3 class="text-2xl font-bold text-brand-blue">Anual VIP</h3>
+        <p class="text-5xl font-extrabold text-brand-blue my-4">S/ 2000</p>
+        <p class="text-green-600 font-bold text-sm mb-4">Ahorras S/ 280</p>
+        {% if anual %}
+            <a href="{% url 'agregar_carrito' anual.id %}" class="block w-full py-4 bg-brand-orange text-white font-bold text-center rounded-xl hover:bg-orange-600 transition shadow-lg">¡Obtener VIP!</a>
+        {% endif %}
+        <ul class="mt-6 space-y-3 text-sm text-gray-600">
+            <li><i class="fa-solid fa-check text-brand-orange mr-2"></i> <strong>Biblioteca Ilimitada (+180 cursos)</strong></li>
+            <li><i class="fa-solid fa-check text-brand-orange mr-2"></i> Acceso 12 meses</li>
+            <li><i class="fa-solid fa-check text-brand-orange mr-2"></i> Diplomados</li>
+        </ul>
+    </div>
+
+    <!-- Semestral -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col hover:-translate-y-2 transition">
+        <h3 class="text-2xl font-bold text-gray-800">Semestral</h3>
+        <p class="text-4xl font-extrabold text-brand-blue my-4">S/ 1090</p>
+        {% if semestral %}
+            <a href="{% url 'agregar_carrito' semestral.id %}" class="block w-full py-3 border-2 border-brand-blue text-brand-blue font-bold text-center rounded-xl hover:bg-brand-blue hover:text-white transition">Suscribirme</a>
+        {% endif %}
+        <ul class="mt-6 space-y-3 text-sm text-gray-600">
+            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Acceso 6 meses</li>
+            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Cursos en vivo</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

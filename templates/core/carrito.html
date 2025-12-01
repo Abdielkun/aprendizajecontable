@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-bold text-brand-blue mb-8">Tu Carrito de Compras</h1>
+
+    {% if cursos %}
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- Lista -->
+        <div class="md:col-span-2 space-y-4">
+            {% for curso in cursos %}
+            <div class="flex gap-4 bg-white p-4 rounded-xl shadow border border-gray-100">
+                <img src="{{ curso.get_image }}" class="w-24 h-24 object-cover rounded-lg">
+                <div class="flex-grow">
+                    <h3 class="font-bold text-gray-800">{{ curso.titulo }}</h3>
+                    <p class="text-brand-orange font-bold text-lg">S/ {{ curso.precio_oferta }}</p>
+                </div>
+                <a href="{% url 'eliminar_carrito' curso.id %}" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Total -->
+        <div class="md:col-span-1">
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-lg font-bold mb-4">Resumen</h3>
+                <div class="flex justify-between text-xl font-bold mb-6">
+                    <span>Total:</span>
+                    <span class="text-brand-blue">S/ {{ total }}</span>
+                </div>
+                <a href="{% url 'checkout' %}" class="block w-full bg-green-600 text-white text-center py-3 rounded-lg font-bold hover:bg-green-700 transition">
+                    Pagar Ahora
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-12">
+        <p class="text-gray-500 mb-4">Tu carrito está vacío.</p>
+        <a href="{% url 'capacitaciones' %}" class="bg-brand-blue text-white px-6 py-2 rounded-full">Ver Cursos</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

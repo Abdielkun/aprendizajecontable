@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-[60vh] flex items-center justify-center text-center px-4">
+    <div class="max-w-lg bg-white p-10 rounded-3xl shadow-2xl">
+        <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">¡Inscripción Registrada!</h2>
+        <p class="text-gray-600 mb-8">
+            Para activar tu acceso inmediatamente, por favor envía la foto de tu comprobante a nuestro correo o WhatsApp indicando tu nombre.
+        </p>
+        
+        <div class="bg-gray-50 p-4 rounded-lg mb-8 text-sm font-mono text-brand-blue">
+            informes@aprendizajecontable.com
+        </div>
+
+        <div class="flex gap-4 justify-center">
+            <a href="https://wa.me/51946134756" target="_blank" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 font-bold transition">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Voucher
+            </a>
+            <a href="{% url 'home' %}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 font-bold transition">
+                Volver al Inicio
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-gray-100 py-10">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-8">
+        
+        <!-- Sidebar Filtros -->
+        <aside class="w-full lg:w-1/4">
+            <div class="bg-white p-6 rounded-xl shadow-sm sticky top-24">
+                <h3 class="font-bold text-lg text-gray-800 mb-6"><i class="fa-solid fa-filter mr-2 text-brand-orange"></i> Filtros</h3>
+                <form method="GET">
+                    <div class="mb-6">
+                        <label class="text-xs font-bold text-gray-400 uppercase mb-2 block">Buscar</label>
+                        <div class="relative">
+                            <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Curso..." class="w-full border-gray-200 rounded-lg pl-9 py-2 text-sm focus:ring-brand-blue">
+                            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-gray-400 uppercase block">Categorías</label>
+                        <a href="?cat=Contabilidad" class="block text-sm text-gray-600 hover:text-brand-blue">Contabilidad</a>
+                        <a href="?cat=Tributaria" class="block text-sm text-gray-600 hover:text-brand-blue">Tributaria</a>
+                        <a href="?cat=Laboral" class="block text-sm text-gray-600 hover:text-brand-blue">Laboral</a>
+                    </div>
+                    <button class="w-full mt-6 bg-brand-blue text-white py-2 rounded text-sm">Filtrar</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Grid -->
+        <div class="w-full lg:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for curso in cursos %}
+            <div class="bg-white rounded-xl shadow hover:shadow-xl transition flex flex-col overflow-hidden">
+                <div class="relative h-40">
+                    <a href="{% url 'detalle_curso' curso.id %}"><img src="{{ curso.get_image }}" class="w-full h-full object-cover hover:scale-105 transition duration-500"></a>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">{{ curso.categoria }}</span>
+                    <a href="{% url 'detalle_curso' curso.id %}"><h3 class="font-bold text-gray-800 text-sm h-10 overflow-hidden mb-4 hover:text-brand-blue">{{ curso.titulo }}</h3></a>
+                    <div class="mt-auto flex justify-between items-center border-t pt-3">
+                        <span class="font-bold text-brand-blue text-lg">S/ {{ curso.precio_oferta }}</span>
+                        <div class="flex gap-2">
+                            <a href="{% url 'detalle_curso' curso.id %}" class="bg-gray-100 text-gray-600 px-3 py-1 rounded text-xs font-bold hover:bg-gray-200">Ver</a>
+                            <a href="{% url 'agregar_carrito' curso.id %}" class="bg-green-500 text-white p-2 rounded hover:bg-green-600"><i class="fa-solid fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-12"><p class="text-gray-500">No se encontraron cursos.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

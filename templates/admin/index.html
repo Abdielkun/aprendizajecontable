@@ -1,0 +1,14 @@
+{% extends "admin/index.html" %}
+{% block content %}
+    <div style="margin-bottom: 20px;">
+        <div style="background: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 20px; border-radius: 8px; text-align: center;">
+            <h2 style="margin-top:0;">🔔 Panel de Control de Ventas</h2>
+            <p>Revisa si tienes pagos pendientes de aprobar.</p>
+            <br>
+            <a href="/admin/core/inscripcion/?pagado__exact=0" style="background: #dc3545; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Ver Pagos Pendientes
+            </a>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock %}

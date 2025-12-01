@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-[90vh] flex items-center justify-center bg-gray-100 px-4 py-12">
+    <div class="max-w-5xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Lado Izquierdo (Formulario) -->
+        <div class="md:w-1/2 p-8 md:p-12 order-2 md:order-1">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-brand-blue">Crea tu Cuenta</h2>
+                <p class="text-gray-500 mt-2">Únete a nuestra comunidad de profesionales.</p>
+            </div>
+
+            <!-- Mensajes de Error -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="p-4 mb-4 text-sm text-white rounded-lg {% if message.tags == 'error' %}bg-red-500{% else %}bg-green-500{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                
+                <!-- Renderizado manual para control total del diseño -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                    {{ form.username }}
+                    <p class="text-xs text-gray-400 mt-1">Este será tu nombre para ingresar.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                    {{ form.email }}
+                </div>
+
+                <!-- Django maneja password 1 y confirmación automáticamente -->
+                {% for field in form %}
+                    {% if field.name == 'password1' or field.name == 'password2' %}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                        <input type="password" name="{{ field.name }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition">
+                        {% if field.help_text %}
+                            <p class="text-xs text-gray-400 mt-1">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Mostrar errores específicos del formulario -->
+                {% if form.errors %}
+                    <div class="text-red-500 text-sm bg-red-50 p-3 rounded">
+                        <strong>Por favor corrige:</strong>
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="w-full bg-brand-orange text-white py-3 rounded-lg font-bold shadow-lg hover:bg-orange-600 transition transform hover:-translate-y-0.5 mt-4">
+                    Registrarme
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-600 mt-6">
+                ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="text-brand-blue font-bold hover:underline">Inicia sesión aquí</a>
+            </p>
+        </div>
+
+        <!-- Lado Derecho (Imagen) -->
+        <div class="md:w-1/2 bg-brand-blue relative overflow-hidden order-1 md:order-2 hidden md:flex flex-col justify-center items-center text-center p-12 text-white">
+            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://centrodecapacitacion.acaprendizajecontable.com/images/slide/PONENTES%20PAGUINA%20PONEN.jpg');"></div>
+            <div class="relative z-10">
+                <img src="https://centrodecapacitacion.acaprendizajecontable.com/images/LOGO_MENU.png" class="h-20 mx-auto mb-6">
+                <h3 class="text-3xl font-bold mb-4">Invierte en tu Futuro</h3>
+                <p class="text-lg text-blue-100">"La mejor inversión que puedes hacer es en tu propio conocimiento."</p>
+                <div class="mt-8 flex justify-center space-x-2">
+                    <span class="w-3 h-3 bg-brand-orange rounded-full"></span>
+                    <span class="w-3 h-3 bg-white/50 rounded-full"></span>
+                    <span class="w-3 h-3 bg-white/50 rounded-full"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

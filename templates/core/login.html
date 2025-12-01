@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-[85vh] flex items-center justify-center bg-gray-100 px-4 py-8">
+    <div class="max-w-4xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Lado Izquierdo (Imagen/Branding) -->
+        <div class="md:w-1/2 bg-brand-blue p-10 text-white flex flex-col justify-center relative overflow-hidden">
+            <!-- Fondo decorativo -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://centrodecapacitacion.acaprendizajecontable.com/images/slide/PONENTES%20PAGUINA%20PONEN.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-brand-blue/80"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-4">¡Hola de nuevo!</h2>
+                <p class="text-blue-100 mb-8 text-lg">Accede a tu aula virtual y continúa potenciando tu carrera profesional.</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
+                        <div class="w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-lg">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <span class="font-medium">Acceso 24/7 a tus clases</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
+                        <div class="w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-lg">
+                            <i class="fa-solid fa-download"></i>
+                        </div>
+                        <span class="font-medium">Descarga de materiales</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lado Derecho (Formulario) -->
+        <div class="md:w-1/2 p-8 md:p-12 bg-white">
+            <div class="w-full max-w-sm mx-auto">
+                <div class="text-center mb-8">
+                    <img src="https://centrodecapacitacion.acaprendizajecontable.com/images/LOGO_MENU_2.png" class="h-12 mx-auto mb-4" alt="Logo">
+                    <h3 class="text-2xl font-bold text-gray-800">Iniciar Sesión</h3>
+                    <p class="text-sm text-gray-500 mt-2">Ingresa tus credenciales para continuar</p>
+                </div>
+
+                <!-- Mensajes de Alerta (Errores de Login) -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-6 p-4 rounded-lg text-sm font-medium text-center flex items-center justify-center gap-2
+                            {% if message.tags == 'error' %} bg-red-50 text-red-600 border border-red-200 
+                            {% else %} bg-green-50 text-green-600 border border-green-200 {% endif %}">
+                            <i class="fa-solid {% if message.tags == 'error' %}fa-circle-exclamation{% else %}fa-check-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form class="space-y-5" method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1" for="username">Usuario</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa-regular fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" name="username" id="username" required 
+                                class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition bg-gray-50 focus:bg-white" 
+                                placeholder="Ej: usuario123">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1" for="password">Contraseña</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa-solid fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" name="password" id="password" required 
+                                class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition bg-gray-50 focus:bg-white" 
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center text-gray-600 cursor-pointer select-none">
+                            <input type="checkbox" class="rounded text-brand-blue focus:ring-brand-blue border-gray-300 mr-2 h-4 w-4">
+                            Recordarme
+                        </label>
+                        <a href="#" class="text-brand-blue hover:text-brand-orange font-semibold transition">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-blue text-white py-3.5 rounded-lg font-bold shadow-lg hover:bg-blue-900 transition transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                        <span>Ingresar al Aula</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <div class="mt-8 text-center border-t border-gray-100 pt-6">
+                    <p class="text-sm text-gray-600">
+                        ¿Aún no tienes cuenta? 
+                        <a href="{% url 'registro' %}" class="text-brand-orange font-bold hover:text-orange-700 hover:underline transition">
+                            Regístrate gratis aquí
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

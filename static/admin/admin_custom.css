@@ -1,0 +1,50 @@
+/* static/css/admin_custom.css */
+
+/* Barra Superior y Sidebar con tu azul */
+.main-header.navbar, 
+.main-sidebar {
+    background-color: #000168 !important;
+}
+
+/* Logo en el login */
+.login-page {
+    background: #f4f6f9;
+}
+.login-logo a {
+    color: #000168 !important;
+    font-weight: bold;
+}
+
+/* Botones principales en Naranja */
+.btn-primary {
+    background-color: #000168 !important;
+    border-color: #000168 !important;
+}
+.btn-primary:hover {
+    background-color: #00004a !important;
+}
+
+/* Botones de acción / guardar en Naranja */
+.btn-success, .btn-info {
+    background-color: #ff6b00 !important;
+    border-color: #ff6b00 !important;
+}
+.btn-success:hover {
+    background-color: #e65100 !important;
+}
+
+/* Estado Activo/Pendiente en la tabla */
+td span[style*="green"] {
+    background-color: #28a745 !important;
+    color: white !important;
+    padding: 5px 10px !important;
+    border-radius: 4px !important;
+    font-weight: 600;
+}
+td span[style*="red"] {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 5px 10px !important;
+    border-radius: 4px !important;
+    font-weight: 600;
+}

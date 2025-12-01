@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="relative h-[650px] overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://centrodecapacitacion.acaprendizajecontable.com/images/slide/PONENTES%20PAGUINA%20PONEN.jpg');">
+        <!-- Overlay degradado azul oscuro -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#000168]/95 via-[#000168]/70 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
+        <div class="max-w-2xl text-white animate-fade-in-up">
+            <div class="inline-block bg-[#ff6b00] text-white text-xs font-bold px-3 py-1 rounded mb-6 uppercase tracking-widest">
+                Centro de Capacitación Especializado
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                Domina las <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300">Normas Contables</span>
+            </h1>
+            <p class="text-lg text-gray-200 mb-10 leading-relaxed">
+                Accede a cursos prácticos, actualizados y certificados por expertos. Únete a la comunidad de contadores más grande del país.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="{% url 'capacitaciones' %}" class="bg-[#ff6b00] hover:bg-orange-600 text-white text-center px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-orange-500/30 transition transform hover:-translate-y-1">
+                    Explorar Cursos
+                </a>
+                <a href="{% url 'nosotros' %}" class="bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 text-white text-center px-8 py-4 rounded-full font-bold text-lg transition">
+                    Conocer Más
+                </a>
+            </div>
+
+            <!-- Stats rápidas -->
+            <div class="mt-12 flex gap-8 border-t border-white/10 pt-8">
+                <div>
+                    <p class="text-3xl font-bold text-white">10k+</p>
+                    <p class="text-xs text-blue-200 uppercase">Alumnos</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-bold text-white">350+</p>
+                    <p class="text-xs text-blue-200 uppercase">Cursos</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-bold text-white">4.9</p>
+                    <div class="text-[#ff6b00] text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN DE CONFIANZA -->
+<div class="bg-white border-b border-gray-100 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Empresas que confían en nuestros alumnos</p>
+        <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            <!-- Logos placeholders (usando FontAwesome por ahora o imágenes) -->
+            <i class="fa-brands fa-microsoft text-4xl hover:text-blue-500"></i>
+            <i class="fa-brands fa-google text-4xl hover:text-red-500"></i>
+            <i class="fa-brands fa-aws text-4xl hover:text-orange-500"></i>
+            <i class="fa-solid fa-building-columns text-4xl hover:text-[#000168]"></i>
+        </div>
+    </div>
+</div>
+
+<!-- CURSOS DESTACADOS -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#000168] mb-4">Cursos Más Solicitados</h2>
+            <div class="w-20 h-1.5 bg-[#ff6b00] mx-auto rounded-full"></div>
+            <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Capacitaciones diseñadas para resolver problemas reales del día a día contable.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for curso in cursos %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:-translate-y-2">
+                <!-- Imagen -->
+                <div class="relative h-52 overflow-hidden">
+                    <a href="{% url 'detalle_curso' curso.id %}">
+                        <img src="{{ curso.get_image }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="{{ curso.titulo }}">
+                    </a>
+                    <div class="absolute top-4 right-4">
+                        <span class="bg-[#ff6b00] text-white text-xs font-bold px-3 py-1 rounded-full shadow uppercase">{{ curso.categoria }}</span>
+                    </div>
+                    {% if curso.destacado %}
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow flex items-center gap-1"><i class="fa-solid fa-fire"></i> HOT</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Contenido -->
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2 h-14 group-hover:text-[#000168] transition">
+                        <a href="{% url 'detalle_curso' curso.id %}">{{ curso.titulo }}</a>
+                    </h3>
+                    
+                    <div class="flex items-center text-xs text-gray-500 mb-6 gap-4">
+                        <span><i class="fa-solid fa-video text-[#ff6b00] mr-1"></i> En Vivo</span>
+                        <span><i class="fa-solid fa-certificate text-[#ff6b00] mr-1"></i> Certificado</span>
+                    </div>
+
+                    <div class="flex justify-between items-end pt-4 border-t border-gray-100">
+                        <div>
+                            <p class="text-xs text-gray-400 line-through">S/ {{ curso.precio_normal }}</p>
+                            <p class="text-2xl font-bold text-[#000168]">S/ {{ curso.precio_oferta }}</p>
+                        </div>
+                        <a href="{% url 'detalle_curso' curso.id %}" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-[#000168] hover:bg-[#000168] hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 py-12 text-center">
+                <p class="text-gray-500">Cargando cursos destacados...</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="{% url 'capacitaciones' %}" class="inline-block border-2 border-[#000168] text-[#000168] font-bold py-3 px-8 rounded-full hover:bg-[#000168] hover:text-white transition">
+                Ver Todos los Cursos
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN BENEFICIOS -->
+<section class="bg-[#000168] text-white py-20 relative overflow-hidden">
+    <!-- Círculos decorativos -->
+    <div class="absolute -left-20 top-20 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    <div class="absolute -right-20 bottom-20 w-96 h-96 bg-[#ff6b00] rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <span class="text-[#ff6b00] font-bold uppercase tracking-widest text-sm mb-2 block">Nuestra Metodología</span>
+                <h2 class="text-4xl font-bold mb-6">¿Por qué somos diferentes?</h2>
+                <p class="text-blue-200 mb-8 text-lg">
+                    No solo enseñamos teoría. Nos enfocamos en la casuística real que enfrentas día a día en tu trabajo.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 text-[#ff6b00] text-xl border border-white/10">
+                            <i class="fa-solid fa-laptop-file"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">100% Práctico en Excel</h4>
+                            <p class="text-sm text-gray-400 mt-1">Plantillas automatizadas que podrás usar en tu trabajo.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 text-[#ff6b00] text-xl border border-white/10">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Mentores Expertos</h4>
+                            <p class="text-sm text-gray-400 mt-1">Auditores y contadores con más de 15 años de experiencia.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 text-[#ff6b00] text-xl border border-white/10">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Doble Certificación</h4>
+                            <p class="text-sm text-gray-400 mt-1">Avalado por el Colegio de Contadores y nuestra institución.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute inset-0 bg-[#ff6b00] rounded-2xl transform rotate-6 opacity-20"></div>
+                <img src="https://centrodecapacitacion.acaprendizajecontable.com/storage/training/analista-contable-y-tributario-2025.jpeg" class="relative rounded-2xl shadow-2xl border-4 border-white/10 w-full" alt="Clase en vivo">
+                
+                <!-- Card flotante -->
+                <div class="absolute bottom-8 -left-8 bg-white p-4 rounded-xl shadow-xl hidden md:block text-gray-800 max-w-xs">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="flex -space-x-2">
+                            <img class="w-8 h-8 rounded-full border-2 border-white bg-gray-200" src="https://ui-avatars.com/api/?name=A&background=random">
+                            <img class="w-8 h-8 rounded-full border-2 border-white bg-gray-200" src="https://ui-avatars.com/api/?name=B&background=random">
+                            <img class="w-8 h-8 rounded-full border-2 border-white bg-gray-200" src="https://ui-avatars.com/api/?name=C&background=random">
+                        </div>
+                        <span class="text-xs font-bold text-gray-500">+500 alumnos</span>
+                    </div>
+                    <p class="text-xs font-semibold">"El mejor curso de tributación que he llevado."</p>
+                    <div class="flex text-[#ff6b00] text-xs mt-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="py-20 bg-gray-50 px-4">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row items-center border border-gray-100">
+        <div class="p-10 md:w-3/5">
+            <h2 class="text-3xl font-bold text-[#000168] mb-4">¿Listo para despegar?</h2>
+            <p class="text-gray-600 mb-8">Únete a nuestra membresía anual y accede a TODOS los cursos por un precio increíble.</p>
+            <a href="{% url 'suscripciones' %}" class="inline-block bg-[#ff6b00] text-white px-8 py-3 rounded-full font-bold hover:bg-orange-600 transition shadow-lg">
+                Ver Planes VIP
+            </a>
+        </div>
+        <div class="md:w-2/5 h-64 bg-cover bg-center" style="background-image: url('https://centrodecapacitacion.acaprendizajecontable.com/storage/training/cierre-contable-bajo-niif-2025.jpeg'); min-height: 250px;">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
